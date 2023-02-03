@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block container %} 
+
+<div class="row"> 
+  <div class="col-md-8 col-md-offset-2"> 
+    <div class="page-header"> 
+        <h1>Login</h1>
+        {% for error in form.non_field_errors %}
+                  <div class='alert alert-danger'>
+                      {{ error }}
+                  </div>
+        {% endfor %}
+    </div>  
+    <form class="form-horizontal" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Usuário</label>
+            <input name="username" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Senha</label>
+            <input name="password" type="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>            
+{% endblock container %}
