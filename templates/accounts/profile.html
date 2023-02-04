@@ -16,8 +16,13 @@
                 {% endif %}
             </p>
             <a class="btn btn-primary" href="/accounts/update/" class="card-link">Alterar dados</a>
+            <a class="btn btn-primary" href="/accounts/change-password/">Mudar a senha</a>
             <a class="btn btn-danger" href="/accounts/delete/" class="card-link">Excluir conta</a>
         </div>
+    </div>
+{% else %}
+    <div class="alert alert-warning">
+        Você não tem permissão para acessar essa página, faça <a href="/accounts/login/">login aqui.</a>
     </div>
 {% endif %}
 

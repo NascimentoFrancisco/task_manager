@@ -9,6 +9,8 @@ from django.views.generic import (
         CreateView, UpdateView, DeleteView, View
     )
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import User
 from .forms import CreationUserForm, ChangeUserForm
@@ -92,3 +94,16 @@ class DeleteUser(LoginRequiredMixin, DeleteView):
             'Perfil apagado com sucesso!'
         )
         return super().get_success_url()
+
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    
+    
+    template_name = 'accounts/password_reset.html'
+    email_template_name = 'accounts/password_reset_email.html'
+    subject_template_name = 'accounts/password_reset_subject'
+    success_message = "Enviamos um e-mail com instruções para definir sua senha, " \
+                       "se existir uma conta com o e-mail que você digitou. Você deve recebê-lo em breve." \
+                       " Se você não receber um e-mail, " \
+                       "certifique-se de que inseriu o endereço com o qual se registrou e verifique sua pasta de spam."
+    success_url = reverse_lazy('home')

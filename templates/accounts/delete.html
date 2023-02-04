@@ -2,22 +2,30 @@
 {% load crispy_forms_tags %}
 
 {% block container %}
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <div class="page-header">
-            <h1>Apagar</h1>
+
+{% if user.is_authenticated or user.is_superuser %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="page-header">
+                <h1>Apagar</h1>
+            </div>
+            <form action="" method="POST">
+                <p><strong>{{ object }}</strong> Você realmente deseja apagar sua conta com todos os seus dados?</p>
+                <p class="text-danger">OBS: Ao apagar sua conta a sua lista de tarefas será eliminada do sistema de uma vez por todas e sendo impossível recuperá-la novamente.</p>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-danger">Excluir</button>
+                
+                <a href="{% url 'accounts:home_user' %}"> 
+                    <button type="button" class="btn btn-outline-danger">Cancelar</button>
+                </a>
+            </form>
         </div>
-        <form action="" method="POST">
-            <p><strong>{{ object }}</strong> Você realmente deseja apagar sua conta com todos os seus dados?</p>
-            <p class="text-danger">OBS: Ao apagar sua conta a sua lista de tarefas será eliminada do sistema de uma vez por todas e sendo impossível recuperá-la novamente.</p>
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-danger">Excluir</button>
-            
-            <a href="{% url 'accounts:home_user' %}"> 
-                <button type="button" class="btn btn-outline-danger">Cancelar</button>
-            </a>
-        </form>
     </div>
-</div>
+{% else %}
+    <div class="alert alert-warning">
+        Você não tem permissão para acessar essa página, faça <a href="/accounts/login/">login aqui.</a>
+    </div>
+{% endif %}
+
 {% endblock %}
