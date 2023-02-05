@@ -11,7 +11,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         'Usuário', max_length=30, null=False, blank=False,
         unique=True, error_messages={'unique' : "Usuário já cadastrado!"},
-        help_text='Um nome curto para a sua idetificação exclusiva no sistema.'
+        help_text='Um nome curto para a sua identificação exclusiva no sistema.'
     )
 
     name = models.CharField(

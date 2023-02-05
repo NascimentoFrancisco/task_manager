@@ -1,9 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.http import HttpResponse
 from django.contrib import messages
-from django.conf import settings
-from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
         CreateView, UpdateView, DeleteView, View
@@ -104,6 +101,6 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     subject_template_name = 'accounts/password_reset_subject'
     success_message = "Enviamos um e-mail com instruções para definir sua senha, " \
                        "se existir uma conta com o e-mail que você digitou. Você deve recebê-lo em breve." \
-                       " Se você não receber um e-mail, " \
+                       "Se você não receber um e-mail, " \
                        "certifique-se de que inseriu o endereço com o qual se registrou e verifique sua pasta de spam."
     success_url = reverse_lazy('home')
