@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block container %}
+<h2>Finalização da tarefa <b>{{object}}</b></h2>
+    <p>Deseja realmente mudar o status dessa tarefa para <b>Finalizada</b>?</p>
+    <form method="POST" class="table" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-group">
+            {{form|crispy}}
+        </div>
+        <button type="submit" class="save btn btn-success ">Confirmar</button>
+    </form>
+{% endblock %}

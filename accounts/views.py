@@ -15,8 +15,10 @@ from .forms import CreationUserForm, ChangeUserForm
 
 class ProfileUser(View):
 
+
     def get(self, request):
         return render(request, 'accounts/profile.html')
+        
 
 class LoginUser(LoginView):
 

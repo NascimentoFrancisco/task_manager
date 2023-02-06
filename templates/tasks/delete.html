@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>Apagar</h1>
+        </div>
+        <form action="" method="POST">
+            <p>você realmente deseja apagar a tarefa <b>{{ object }}</b> de sua lista?</p>
+            <p class="text-danger">OBS: Ao apagar essa tarefa de sua lista ela será eliminado de uma vez por todas do sistema sendo assim impossível recuperá-la novamente.</p>
+            {% csrf_token %}
+            {{ form.as_p }}
+        
+            {% if not object.status %}
+                <br>
+                <p class="text-danger"><b>Esta tarefa não está finalizada, você realmente deseja apaga antes finaliza-la?</b></p>
+                <br>
+            {% endif %}
+            <button type="submit" class="btn btn-danger">Excluir</button>
+            
+            <a href="javascript:history.back()"> 
+                <button type="button" class="btn btn-outline-danger">Cancelar</button>
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}
