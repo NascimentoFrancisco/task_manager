@@ -13,8 +13,10 @@ from .models import User
 from .forms import CreationUserForm, ChangeUserForm
 
 
-class ProfileUser(View):
+class ProfileUser(LoginRequiredMixin, View):
 
+
+    template_name = 'accounts/login.html'
 
     def get(self, request):
         return render(request, 'accounts/profile.html')

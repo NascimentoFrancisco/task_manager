@@ -2,62 +2,55 @@
 {% load crispy_forms_tags %}
 {% block container %}
 <div class="table-responsive">
-<table class="table table-striped">
-    <th><h1>Lista de tarefas</h1></th>
-    <th>
-      <a href="/tasks/create/" class="text-primary">
-        <button type="button" class="btn btn-success">Adicionar</button>
-      </a>
-    </th>
-</table>
-    <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Título</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">Status</th>
-            <th cope="col">Período</th>
-            <th scope="col">Opções</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for task in object_list %}
-          <tr>
-            <td>
-                {{ task.title }}
-            </td>
-            <td>{{ task.description }}</td>
-            <td>
-                {% if task.status %}
-                    <p class="text-success"><b>Finalizada</b></p>
-                {% else %}
-                    <a href="/tasks/finish/{{ task.id }}">
-                      <button type="button" class="btn btn-outline-primary">Finalizar</button>
-                    </a>
-                {% endif %}
-            </td>
-            <td>
-                {% if task.status %}
-                    De {{task.creation_date|date:"d/m/Y" }} a {{task.date_conclusion|date:"d/m/Y" }}.
-                {% else %}
-                    De {{task.creation_date|date:"d/m/Y" }} até agora.
-                {% endif %}
-            </td>
-            <td>
-                <div class="d-flex justify-content-around">
-                  <a href="/tasks/update/{{ task.id }}" data-toggle="tooltip" data-placement="top" title="Editar"> 
-                      <img src="/static/icons/pencil-square.svg" width="20" height="20" alt="edit">
-                  </a>
-                
-                  <a href="/tasks/delete/{{ task.id }}" data-toggle="tooltip" data-placement="top" title="Apagar">
-                      <img src="/static/icons/trash-fill.svg" width="20" height="20" alt="edit">
-                  </a>
-                </div>
-                
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-</table>
+
+<div class="container d-flex justify-content-between">
+  <h1>Lista de tarefas</h1>
+  <a href="/tasks/create/" class="text-primary" title="Adicionar tarefa">
+    <img src="/static/icons/list-add.svg" width="50" height="50" alt="edit">
+  </a>
 </div>
+{% for task in object_list %}
+<div class="card border border-success">
+  <div class="card-header d-flex justify-content-between">
+    <b>{{ task.title }}</b>
+    <a href="/tasks/finish/{{ task.id }}">
+      <button type="button" class="btn btn-outline-primary">Finalizar</button>
+    </a>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{ task.description }}</p>
+    <p class="card-text"><b>Status: </b>
+      {% if task.status %}
+        <b class="text-success">Finalizada</b>
+      {% else %}
+        <b class="text-danger">Pendente</b>
+      {% endif %}
+    </p>
+    <p class="card-text"> <b>Periodo:</b> 
+      {% if task.status %}
+        De {{task.creation_date|date:"d/m/Y" }} a {{task.date_conclusion|date:"d/m/Y" }}.
+      {% else %}
+        De {{task.creation_date|date:"d/m/Y" }} até agora.
+      {% endif %}
+    </p>
+  
+    <div class="container pt-3">
+      <div class="row g-2">
+        <div class="col-2 col-md-1 order-2 order-md-1">
+          <a href="/tasks/update/{{ task.id }}" data-toggle="tooltip" data-placement="top" title="Editar"> 
+            <img src="/static/icons/pencil-square.svg" width="20" height="20" alt="edit">
+          </a>
+        </div>
+        <div class="col-2 col-md-1 order-1 order-md-1">
+          <a href="/tasks/delete/{{ task.id }}" data-toggle="tooltip" data-placement="top" title="Apagar">
+            <img src="/static/icons/trash-fill.svg" width="20" height="20" alt="edit">
+          </a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<br>
+{% endfor %}
 {% endblock %}
