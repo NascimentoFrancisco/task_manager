@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block container %}
+    <h2>Ops, página não encontrada!</h2>
+    
+    <img src="/static/icons/error_404.svg" width="300" height="300">
+    <p>Você tentou acessar uma página que não existe no nosso site. Retorne para a página anterior.</p>
+    
+    <a href="javascript:history.back()">
+        <button type="button" class="btn btn-outline-primary">Voltar</button>
+    </a>
+{% endblock %} 

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block container %}
+    <h2>Ops, error no servidor!</h2>
+    
+    <img src="/static/icons/error_500.svg" width="300" height="300">
+    <p>Aconteceu algum erro interno no nosso sistema. Retorne para a página anterior.</p>
+    
+    <a href="javascript:history.back()">
+        <button type="button" class="btn btn-outline-primary">Voltar</button>
+    </a>
+{% endblock %} 

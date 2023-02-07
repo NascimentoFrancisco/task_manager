@@ -15,10 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.urls import re_path as url
+from django.conf import settings
+from django.views.static import serve
 
-from .views import HomeView
+
+from .views import HomeView, Handler404, Handler500
+
+handler404 = Handler404.as_view()
+handler500 = Handler500.as_view()
 
 urlpatterns = [
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     path('', HomeView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),

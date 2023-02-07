@@ -13,9 +13,13 @@
 <div class="card border border-success">
   <div class="card-header d-flex justify-content-between">
     <b>{{ task.title }}</b>
-    <a href="/tasks/finish/{{ task.id }}">
-      <button type="button" class="btn btn-outline-primary">Finalizar</button>
-    </a>
+    {% if task.status %}
+      <img src="/static/icons/done.svg" width="50" height="50" alt="done" title="Finalizada">
+    {% else %}
+      <a href="/tasks/finish/{{ task.id }}">
+        <button type="button" class="btn btn-outline-primary">Finalizar</button>
+      </a>
+    {% endif %}
   </div>
   <div class="card-body">
     <p class="card-text">{{ task.description }}</p>
