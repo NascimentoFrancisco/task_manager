@@ -50,7 +50,7 @@ class UpdateTasks(LoginRequiredMixin, UpdateView):
     model = Task
     template_name = 'tasks/create.html'
     fields = ['title','description']
-    success_url = reverse_lazy('task:home_tasks')
+    success_url = reverse_lazy('tasks:home_tasks')
 
     def form_valid(self, form):
         
