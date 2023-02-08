@@ -9,52 +9,58 @@
     <img src="/static/icons/list-add.svg" width="50" height="50" alt="edit">
   </a>
 </div>
-{% for task in object_list %}
-<div class="card border border-success">
-  <div class="card-header d-flex justify-content-between">
-    <b>{{ task.title }}</b>
-    {% if task.status %}
-      <img src="/static/icons/done.svg" width="50" height="50" alt="done" title="Finalizada">
-    {% else %}
-      <a href="/tasks/finish/{{ task.id }}">
-        <button type="button" class="btn btn-outline-primary">Finalizar</button>
-      </a>
-    {% endif %}
+{% if not object_list %}
+  <div class="alert alert-warning">
+    Ops, você não tem nenhuma tarefa salva ainda.
   </div>
-  <div class="card-body">
-    <p class="card-text">{{ task.description }}</p>
-    <p class="card-text"><b>Status: </b>
+{% else %}
+  {% for task in object_list %}
+  <div class="card border border-success">
+    <div class="card-header d-flex justify-content-between">
+      <b>{{ task.title }}</b>
       {% if task.status %}
-        <b class="text-success">Finalizada</b>
+        <img src="/static/icons/done.svg" width="50" height="50" alt="done" title="Finalizada">
       {% else %}
-        <b class="text-danger">Pendente</b>
+        <a href="/tasks/finish/{{ task.id }}">
+          <button type="button" class="btn btn-outline-primary">Finalizar</button>
+        </a>
       {% endif %}
-    </p>
-    <p class="card-text"> <b>Periodo:</b> 
-      {% if task.status %}
-        De {{task.creation_date|date:"d/m/Y" }} a {{task.date_conclusion|date:"d/m/Y" }}.
-      {% else %}
-        De {{task.creation_date|date:"d/m/Y" }} até agora.
-      {% endif %}
-    </p>
-  
-    <div class="container pt-3">
-      <div class="row g-2">
-        <div class="col-2 col-md-1 order-2 order-md-1">
-          <a href="/tasks/update/{{ task.id }}" data-toggle="tooltip" data-placement="top" title="Editar"> 
-            <img src="/static/icons/pencil-square.svg" width="20" height="20" alt="edit">
-          </a>
-        </div>
-        <div class="col-2 col-md-1 order-1 order-md-1">
-          <a href="/tasks/delete/{{ task.id }}" data-toggle="tooltip" data-placement="top" title="Apagar">
-            <img src="/static/icons/trash-fill.svg" width="20" height="20" alt="edit">
-          </a>
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{ task.description }}</p>
+      <p class="card-text"><b>Status: </b>
+        {% if task.status %}
+          <b class="text-success">Finalizada</b>
+        {% else %}
+          <b class="text-danger">Pendente</b>
+        {% endif %}
+      </p>
+      <p class="card-text"> <b>Periodo:</b> 
+        {% if task.status %}
+          De {{task.creation_date|date:"d/m/Y" }} a {{task.date_conclusion|date:"d/m/Y" }}.
+        {% else %}
+          De {{task.creation_date|date:"d/m/Y" }} até agora.
+        {% endif %}
+      </p>
+    
+      <div class="container pt-3">
+        <div class="row g-2">
+          <div class="col-2 col-md-1 order-2 order-md-1">
+            <a href="/tasks/update/{{ task.id }}" data-toggle="tooltip" data-placement="top" title="Editar"> 
+              <img src="/static/icons/pencil-square.svg" width="20" height="20" alt="edit">
+            </a>
+          </div>
+          <div class="col-2 col-md-1 order-1 order-md-1">
+            <a href="/tasks/delete/{{ task.id }}" data-toggle="tooltip" data-placement="top" title="Apagar">
+              <img src="/static/icons/trash-fill.svg" width="20" height="20" alt="edit">
+            </a>
+          </div>
         </div>
       </div>
+      
     </div>
-    
   </div>
-</div>
-<br>
-{% endfor %}
+  <br>
+  {% endfor %}
+{% endif %}
 {% endblock %}

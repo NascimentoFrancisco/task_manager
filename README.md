@@ -1,5 +1,12 @@
 # Desafio Django: Aplicação de Tarefas
 
+# Informações referentes a solução do desafio
+
+* Documentação para uso do projeto [docs](docs.md)
+* Link do site na web [Gerenciador de tarefas](https://taskmanager-production-1f60.up.railway.app/)
+
+# Desafio proposto
+
 Neste desafio, você precisará criar uma aplicação simples de gerenciamento de tarefas, usando o framework [Django](https://www.djangoproject.com/).
 
 >## Requerimentos:
