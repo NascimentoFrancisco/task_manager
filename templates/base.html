@@ -82,7 +82,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/accounts/">Perfil</a>
+          <a class="nav-link" aria-current="page" href="/accounts/">Dados cadastrais</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/tasks/">Tarefas</a>
@@ -118,10 +118,10 @@
     
         <h1>Gerenciador de Tarefas</h1>
         {% if user.is_authenticated or user.is_superuser %}
-          <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser’s viewport.</p>
+          <p class="lead">Olá <b>{{ user.name }}</b>, seja bem-vindo(a) ao nosso gerenciador de tarefas! Aqui você encontrará uma plataforma fácil e intuitiva para organizar suas atividades e garantir que nada fique para trás. Acesse sua lista de tarefas clicando no botão abaixo.</p>
           <a class="btn btn-lg btn-primary" href="/tasks/" role="button">Minhas tarefas &raquo;</a>
         {% else %}
-          <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser’s viewport.</p>
+          <p class="lead">Seja bem-vindo(a) ao nosso gerenciador de tarefas! Aqui você encontrará uma plataforma fácil e intuitiva para organizar suas atividades e garantir que nada fique para trás. Para usufruir de todos os nossos serviços, basta realizar seu cadastro ou fazer login se você já estiver cadastrado.</p>
           
           <a class="btn btn btn-primary" href="/accounts/login/" role="button">Fazer Login &raquo;</a>
           <br>
