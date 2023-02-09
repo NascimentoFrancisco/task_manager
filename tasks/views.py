@@ -9,6 +9,7 @@ from django.views.generic import (
     )
 
 from .models import Task
+from .forms import CreateUpdadteTask
 # Create your views here.
 
 
@@ -18,7 +19,7 @@ class CreateTasks(LoginRequiredMixin, CreateView):
     model = Task
     login_url = reverse_lazy('accounts:login_user')
     template_name = 'tasks/create.html'
-    fields = ['title','description']
+    form_class = CreateUpdadteTask
     success_url = reverse_lazy('tasks:home_tasks')
 
     def form_valid(self, form):
@@ -39,7 +40,7 @@ class ListTasks(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('accounts:login_user')
 
     def get_queryset(self):
-        queryset = Task.objects.filter(user = self.request.user)
+        queryset = Task.objects.filter(user = self.request.user).order_by('status','-date_conclusion')
         return queryset
 
 
@@ -49,15 +50,19 @@ class UpdateTasks(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('accounts:login_user')
     model = Task
     template_name = 'tasks/create.html'
-    fields = ['title','description']
+    form_class = CreateUpdadteTask
     success_url = reverse_lazy('tasks:home_tasks')
 
-    def form_valid(self, form):
-        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Editar Tarefa'
+        return context
+
+    def get_success_url(self) -> str:
         messages.success(self.request, 
             f'Tarefa "{self.get_object().title}" alterada com sucesso!'
         )
-        return super().form_valid(form)
+        return super().get_success_url()
 
 
 class FinishTasks(LoginRequiredMixin, UpdateView):
@@ -71,12 +76,23 @@ class FinishTasks(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
 
-        form.instance.status = True
+        now = timezone.now()
         
+        form.instance.status = True
+        form.instance.date_conclusion = now
+                
+        if now <= self.get_object().deadline_date:
+            form.instance.punctuality = True
+        
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+
         messages.success(self.request, 
             f'Tarefa "{self.get_object().title}" finalizada com sucesso!'
         )
-        return super().form_valid(form)
+
+        return super().get_success_url()
 
 
 class DeleteTasks(LoginRequiredMixin, DeleteView):

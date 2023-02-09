@@ -1,5 +1,12 @@
 # Desafio Django: Aplicação de Tarefas
 
+# Informações referentes a solução do desafio
+
+* Documentação para uso do projeto [docs](docs.md)
+* Link do site na web [Gerenciador de tarefas](https://taskmanager-production-1f60.up.railway.app/)
+
+# Desafio proposto
+
 Neste desafio, você precisará criar uma aplicação simples de gerenciamento de tarefas, usando o framework [Django](https://www.djangoproject.com/).
 
 >## Requerimentos:
@@ -12,7 +19,7 @@ Neste desafio, você precisará criar uma aplicação simples de gerenciamento d
 >## Instruções:
 
 1. Crie um novo projeto Django com o nome "task_manager".
-2. Adicione as seguintes informações a cada tarefa: título, descrição, data de criação, data de conclusão e status (pendente/concluído).
+2. Adicione as seguintes informações a cada tarefa: título, descrição, data de criação, data de prazo, data de conclusão e status (pendente/concluído).
 3. Implemente a autenticação de usuários, permitindo que os usuários se registrem e façam login.
 4. Crie uma página para listar todas as tarefas, onde os usuários possam ver todas as tarefas que eles criaram.
 5. Crie uma página para criar uma nova tarefa.
