@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block container %}
+<!-- <div class="container d-flex justify-content-between">
+    <h2>Cadastra e alterações de tarefas</h2>
+    <div class="form-group mt-0 mb-1">
+        <a class="btn btn-outline-danger" href="javascript:history.back()">Cancelar</a>
+    </div>
+</div>-->
 <h2>Cadastra e alterações de tarefas</h2>
     <form method="POST" class="table" enctype="multipart/form-data">
     {% csrf_token %}
         <div class="form-group">
             {{form|crispy}}
         </div>
-        <button type="submit" class="save btn btn-success ">Salvar</button>
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-default text-danger" href="javascript:history.back()">Cancelar</a>
+            <button type="submit" class="save btn btn-success">Salvar</button>
+        </div>
     </form>
 {% endblock %}
