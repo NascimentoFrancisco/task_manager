@@ -37,9 +37,9 @@
       </p>
       <p class="card-text"> <b>Periodo:</b> 
         {% if task.status %}
-          De {{task.creation_date|date:"d/m/Y" }} a {{task.date_conclusion|date:"d/m/Y" }}.
+          De {{task.creation_date|date:"d/m/Y H:i" }} a {{task.date_conclusion|date:"d/m/Y H:i" }}.
         {% else %}
-          De {{task.creation_date|date:"d/m/Y" }} até agora.
+          De {{task.creation_date|date:"d/m/Y H:i" }} até agora.
         {% endif %}
       </p>
     
