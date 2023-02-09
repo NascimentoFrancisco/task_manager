@@ -1,5 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.utils import timezone
 from accounts.models import User
 
 from .models import Task
@@ -22,7 +23,8 @@ class TasksViewsTestCase(TestCase):
         self.task = Task.objects.create(
             user = self.user,
             title='Tarefa 1',
-            description='Descrição teste'
+            description='Descrição teste',
+            deadline_date = timezone.datetime(2023, 2, 9, 15, 32)
         )
 
         return super().setUp()
@@ -34,7 +36,8 @@ class TasksViewsTestCase(TestCase):
         self.client.login(username='testuser',password='senha123#')
         response = self.client.post(url, {
             'title':'Tarefa 2',
-            'description':'Descrição teste tarefa 2'
+            'description':'Descrição teste tarefa 2',
+            'deadline_date':'2023-02-09 15:32'
         })
 
         self.assertEqual(response.status_code, 302)
@@ -47,7 +50,8 @@ class TasksViewsTestCase(TestCase):
         self.client.login(username='testuser',password='senha123#')
         response = self.client.post(url,{
             'title':'Tarefa 1 alterada',
-            'description':'Descrição teste 1 alterado'
+            'description':'Descrição teste 1 alterado',
+            'deadline_date':'2023-02-09 15:32'
         })
 
         self.assertEqual(response.status_code, 302)
