@@ -18,4 +18,11 @@ class CreateUpdadteTask(forms.ModelForm):
             'description':forms.Textarea(),
         }
     
+    def __init__(self, *args, **kwargs):
+        
+        super().__init__(*args, **kwargs)
+        if self.instance.status:
+            self.fields['deadline_date'].widget.attrs['disabled'] = True
+            self.fields['deadline_date'].widget.attrs['readonly'] = True
+        
         
