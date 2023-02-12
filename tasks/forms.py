@@ -1,6 +1,7 @@
 from django import forms
 from .models import Task
 
+
 class CreateUpdadteTask(forms.ModelForm):
 
 
@@ -18,4 +19,9 @@ class CreateUpdadteTask(forms.ModelForm):
             'description':forms.Textarea(),
         }
     
+    def __init__(self, *args, **kwargs):
         
+        super().__init__(*args, **kwargs)
+        if self.instance.status:
+            self.fields.pop('deadline_date')
+            
