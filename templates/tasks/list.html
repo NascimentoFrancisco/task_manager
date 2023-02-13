@@ -37,12 +37,12 @@
           <b class="text-danger">Pendente</b>
         {% endif %}
       </p>
-      <p><b>Prazo:</b> {{ task.deadline_date|date:"d/m/Y" }} até às {{ task.deadline_date|date:"H:i" }}</p>
+      <p><b>Prazo:</b> {{ task.deadline_date|date:"d/m/Y" }} até às {{ task.deadline_date|date:"H:i:s" }}</p>
       <p class="card-text"> <b>Periodo:</b> 
         {% if task.status %}
-          De {{task.creation_date|date:"d/m/Y" }} às {{task.creation_date|date:"H:i" }} até {{task.date_conclusion|date:"d/m/Y" }} às {{task.date_conclusion|date:"H:i" }}.
+          De {{task.creation_date|date:"d/m/Y" }} às {{task.creation_date|date:"H:i:s" }} até {{task.date_conclusion|date:"d/m/Y" }} às {{task.date_conclusion|date:"H:i:s" }}.
         {% else %}
-          De {{task.creation_date|date:"d/m/Y H:i" }} até agora.
+          De {{task.creation_date|date:"d/m/Y"}} às {{task.creation_date|date:"H:i:s" }} até agora.
         {% endif %}
       </p>
     

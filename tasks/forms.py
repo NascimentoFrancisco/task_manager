@@ -22,7 +22,7 @@ class CreateUpdadteTask(forms.ModelForm):
         
         super().__init__(*args, **kwargs)
         if self.instance.status:
-            self.fields['deadline_date'].widget.attrs['disabled'] = True
-            self.fields['deadline_date'].widget.attrs['readonly'] = True
+            self.fields.pop('deadline_date')
+    
         
         
