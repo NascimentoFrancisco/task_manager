@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block container %}
+<h2>Inicialização da tarefa <b>{{object}}</b></h2>
+    <p>Deseja realmente mudar o status dessa tarefa para <b>Em execução</b>?</p>
+    <form method="POST" class="table" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-group">
+            {{form|crispy}}
+        </div>
+        <p class="text-dark">Ao iniciar esta tarefa você não poderá mais alterar <b>Data de início</b> e nem a <b>Data prazo</b> dela.</p>
+        <button type="submit" class="save btn btn-success ">Confirmar</button>
+        <a href="javascript:history.back()"> 
+            <button type="button" class="btn btn-outline-danger">Cancelar</button>
+        </a>
+    </form>
+{% endblock %}

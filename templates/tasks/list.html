@@ -20,7 +20,11 @@
       <b>{{ task.title }}</b>
       {% if task.status %}
         <img src="/static/icons/done.svg" width="50" height="50" alt="done" title="Finalizada">
-      {% else %}
+      {% elif not task.start_task and not task.status %}
+        <a href="/tasks/start/{{ task.id }}">
+          <button type="button" class="btn btn-outline-primary">Iniciar tarefa</button>
+        </a>
+      {% elif task.start_task and not task.status %}
         <a href="/tasks/finish/{{ task.id }}">
           <button type="button" class="btn btn-outline-primary">Finalizar</button>
         </a>
@@ -29,7 +33,9 @@
     <div class="card-body">
       <p class="card-text">{{ task.description }}</p>
       <p class="card-text"><b>Status: </b>
-        {% if task.status and task.punctuality %}
+        {% if not task.status and task.start_task %}
+        <b class="text-primary">Em execução. &#8987</b>
+        {% elif task.status and task.punctuality %}
           <b class="text-success">Finalizada dentro do prazo. &#128079 &#128079</b>
         {% elif task.status and not task.punctuality %}
           <b class="text-success">Finalizada com atraso. &#128077</b>
@@ -37,12 +43,16 @@
           <b class="text-danger">Pendente</b>
         {% endif %}
       </p>
+      <p><b>Criada em:</b> {{ task.creation_date|date:"d/m/Y" }} às {{ task.creation_date|date:"H:i:s" }}</p>
+      <p><b>Início previsto:</b> {{ task.start_date_task|date:"d/m/Y" }} às {{ task.start_date_task|date:"H:i:s" }}</p>
       <p><b>Prazo:</b> {{ task.deadline_date|date:"d/m/Y" }} até às {{ task.deadline_date|date:"H:i:s" }}</p>
       <p class="card-text"> <b>Periodo:</b> 
         {% if task.status %}
-          De {{task.creation_date|date:"d/m/Y" }} às {{task.creation_date|date:"H:i:s" }} até {{task.date_conclusion|date:"d/m/Y" }} às {{task.date_conclusion|date:"H:i:s" }}.
+          De {{task.startup_date|date:"d/m/Y" }} às {{task.startup_date|date:"H:i:s" }} até {{task.date_conclusion|date:"d/m/Y" }} às {{task.date_conclusion|date:"H:i:s" }}.
+        {% elif task.start_task and not task.status %}
+          De {{task.startup_date|date:"d/m/Y"}} às {{task.startup_date|date:"H:i:s" }} até agora.
         {% else %}
-          De {{task.creation_date|date:"d/m/Y"}} às {{task.creation_date|date:"H:i:s" }} até agora.
+          Não iniciado ainda.
         {% endif %}
       </p>
     

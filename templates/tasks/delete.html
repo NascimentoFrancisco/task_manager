@@ -13,9 +13,13 @@
             {% csrf_token %}
             {{ form.as_p }}
         
-            {% if not object.status %}
+            {% if not object.start_task %}
                 <br>
-                <p class="text-danger"><b>Esta tarefa não está finalizada, você realmente deseja apaga antes finaliza-la?</b></p>
+                <p class="text-danger"><b>Esta tarefa não foi Inicializada, você realmente deseja apaga antes finaliza-la?</b></p>
+                <br>
+            {% elif object.start_task and not object.status %}
+                <br>
+                <p class="text-danger"><b>Esta tarefa está sendo executada, você realmente deseja apaga antes finaliza-la?</b></p>
                 <br>
             {% endif %}
             <button type="submit" class="btn btn-danger">Excluir</button>

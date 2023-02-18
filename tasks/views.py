@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
         CreateView, ListView,UpdateView, DeleteView
     )
+from django.core.exceptions import ValidationError
 
 from .models import Task
 from .forms import CreateUpdadteTask
@@ -23,9 +24,14 @@ class CreateTasks(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('tasks:home_tasks')
 
     def form_valid(self, form):
-        
-        form.instance.user = self.request.user
-        title = form.data['title']
+        try:
+            form.instance.user = self.request.user
+            title = form.data['title']
+            form.save()
+        except ValidationError as error_model:
+            
+            messages.warning(self.request, error_model.message)
+            return HttpResponseRedirect(reverse_lazy('tasks:create_tasks'))
 
         messages.success(self.request, 
             f'Tarefa "{title}" criada com sucesso!'
@@ -62,6 +68,32 @@ class UpdateTasks(LoginRequiredMixin, UpdateView):
         messages.success(self.request, 
             f'Tarefa "{self.get_object().title}" alterada com sucesso!'
         )
+        return super().get_success_url()
+
+
+class StartTasks(LoginRequiredMixin, UpdateView):
+
+
+    login_url = reverse_lazy('accounts:login_user')
+    model = Task
+    template_name = 'tasks/start_task.html'
+    fields = []
+    success_url = reverse_lazy('tasks:home_tasks')
+
+    def form_valid(self, form):
+        
+        now = timezone.now()
+
+        form.instance.start_task = True
+        form.instance.startup_date = now
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+
+        messages.success(self.request, 
+            f'Tarefa "{self.get_object().title}" iniciada com sucesso!'
+        )
+
         return super().get_success_url()
 
 
