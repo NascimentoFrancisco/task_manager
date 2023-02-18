@@ -8,11 +8,14 @@ class CreateUpdadteTask(forms.ModelForm):
         
 
         model = Task
-        fields = ['title', 'deadline_date', 'description']
+        fields = ['title', 'start_date_task', 'deadline_date', 'description']
 
         widgets = {
             'title':forms.TextInput(),
             'deadline_date':forms.TextInput(
+                attrs={'type':'datetime-local'}
+            ),
+            'start_date_task':forms.TextInput(
                 attrs={'type':'datetime-local'}
             ), 
             'description':forms.Textarea(),
@@ -21,7 +24,8 @@ class CreateUpdadteTask(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         
         super().__init__(*args, **kwargs)
-        if self.instance.status:
+        if self.instance.status or self.instance.start_task:
+            self.fields.pop('start_date_task')
             self.fields.pop('deadline_date')
     
         

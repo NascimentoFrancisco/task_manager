@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block container %}
-<!-- <div class="container d-flex justify-content-between">
-    <h2>Cadastra e alterações de tarefas</h2>
-    <div class="form-group mt-0 mb-1">
-        <a class="btn btn-outline-danger" href="javascript:history.back()">Cancelar</a>
+
+{% if object.status %}
+    <div class="alert alert-info alert-dismissible messages" role="alert">
+        Data de início e Data prazo não estão disponíveis porque a tarefa já foi concluída
     </div>
-</div>-->
+{% endif %}
 <h2>Cadastra e alterações de tarefas</h2>
+    
     <form method="POST" class="table" enctype="multipart/form-data">
     {% csrf_token %}
         <div class="form-group">
