@@ -59,6 +59,23 @@ class UpdateTasks(LoginRequiredMixin, UpdateView):
     form_class = CreateUpdadteTask
     success_url = reverse_lazy('tasks:home_tasks')
 
+    def form_valid(self, form):
+
+        try:
+            form.instance.user = self.request.user
+            form.save()
+        except ValidationError as error_model:
+            
+            messages.warning(self.request, error_model.message)
+            return HttpResponseRedirect(
+                reverse_lazy(
+                    'tasks:update_tasks', 
+                    kwargs={'pk': self.get_object().pk}
+                )
+            )
+
+        return super().form_valid(form)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar Tarefa'
