@@ -1,7 +1,6 @@
 from django import forms
 from .models import Task
 
-
 class CreateUpdadteTask(forms.ModelForm):
 
 
@@ -13,10 +12,10 @@ class CreateUpdadteTask(forms.ModelForm):
 
         widgets = {
             'title':forms.TextInput(),
-            'start_date_task':forms.TextInput(
+            'deadline_date':forms.TextInput(
                 attrs={'type':'datetime-local'}
             ),
-            'deadline_date':forms.TextInput(
+            'start_date_task':forms.TextInput(
                 attrs={'type':'datetime-local'}
             ), 
             'description':forms.Textarea(),
@@ -28,4 +27,6 @@ class CreateUpdadteTask(forms.ModelForm):
         if self.instance.status or self.instance.start_task:
             self.fields.pop('start_date_task')
             self.fields.pop('deadline_date')
-            
+    
+        
+        

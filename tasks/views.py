@@ -46,7 +46,7 @@ class ListTasks(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('accounts:login_user')
 
     def get_queryset(self):
-        queryset = Task.objects.filter(user = self.request.user).order_by('status','-date_conclusion')
+        queryset = Task.objects.filter(user = self.request.user).order_by('status')
         return queryset
 
 
@@ -65,7 +65,7 @@ class UpdateTasks(LoginRequiredMixin, UpdateView):
             form.instance.user = self.request.user
             form.save()
         except ValidationError as error_model:
-            
+
             messages.warning(self.request, error_model.message)
             return HttpResponseRedirect(
                 reverse_lazy(
@@ -75,7 +75,7 @@ class UpdateTasks(LoginRequiredMixin, UpdateView):
             )
 
         return super().form_valid(form)
-
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar Tarefa'
@@ -98,7 +98,7 @@ class StartTasks(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('tasks:home_tasks')
 
     def form_valid(self, form):
-        
+
         now = timezone.now()
 
         form.instance.start_task = True
@@ -113,7 +113,7 @@ class StartTasks(LoginRequiredMixin, UpdateView):
 
         return super().get_success_url()
 
-
+        
 class FinishTasks(LoginRequiredMixin, UpdateView):
 
 

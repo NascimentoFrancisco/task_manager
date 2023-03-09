@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.conf import settings
+from django.conf import settings 
 from django.core.exceptions import ValidationError 
 
 
@@ -27,8 +27,7 @@ class Task(models.Model):
     )
     deadline_date = models.DateTimeField('Data prazo',
         help_text='Data/hora em que a tarefa deve ser feita'+
-        ' ou em que ela deve está concluída.',
-        validators=[validate_date]
+        ' ou em que ela deve está concluída.'
     )
     date_conclusion = models.DateTimeField('Data de conclusão', null=True)
     startup_date = models.DateTimeField('Data de inicialização', null=True)
